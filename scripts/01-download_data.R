@@ -1,26 +1,37 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves the data from "www.gutenberg.org"
+# Author: Sindhu Priya Mallavarapu, Jena Shah
+# Date: 2024-03-04
+# Contact: sindhupriya.mallavarapu@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
 
 
 #### Workspace setup ####
-library(opendatatoronto)
+library("gutenbergr")
 library(tidyverse)
-# [...UPDATE THIS...]
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
+
+#check how gutenbergr is setup so that we can find the right book
+gutenberg_metadata
+
+# filter for title = "Pride and Prejudice"
+gutenberg_metadata |>
+  filter(title == "Pride and Prejudice")
+
+# get the rught book using the gutenberg id
+
+pnp <- gutenberg_download(
+  gutenberg_id = 42671, 
+  mirror = "ftp://ftp.ibiblio.org/pub/docs/books/gutenberg/" 
+)
 
 
+pnp
 
 #### Save data ####
 # [...UPDATE THIS...]
 # change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+write_csv(pnp, "inputs/data/raw_data.csv") 
 
          
