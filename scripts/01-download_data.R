@@ -19,7 +19,7 @@ gutenberg_metadata
 gutenberg_metadata |>
   filter(title == "Pride and Prejudice")
 
-# get the rught book using the gutenberg id
+# get the right book using the gutenberg id
 
 pnp <- gutenberg_download(
   gutenberg_id = 42671, 
