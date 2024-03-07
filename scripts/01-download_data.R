@@ -7,7 +7,7 @@
 
 
 #### Workspace setup ####
-library("gutenbergr")
+library(gutenbergr)
 library(tidyverse)
 
 #### Download data ####
