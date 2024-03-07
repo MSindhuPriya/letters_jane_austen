@@ -27,12 +27,11 @@ e_sim <-
 
 #plot the data
 e_sim |>
-  ggplot(aes(y = num_e, x = num_words_in_line)) +
-  geom_point() +
+  ggplot(aes(y = num_e, x = num_words_in_line)) + geom_count() +
   labs(
     x = "Number of words in line",
     y = "Number of e/Es in the first ten lines"
   ) +
-  theme_classic()
+  theme_minimal()
 
 
