@@ -1,20 +1,231 @@
-width,length,flying_time
-70,111,1.83
-57,127,2.32
-59,92,2.05
-70,75,1.1
-62,112,2.32
-68,103.5,0.5
-58,108,1.7
-79,114,0.86
-56,186,3.42
-87,68,1.37
-50,118,2.68
-49,186,1.83
-61,116,1.32
-60,127,1
-56,184,2.79
-69,124,1.4
-60,95,1.12
-44,137,1.28
-63,125,1.35
+text,chapter,count_e,word_count
+"It is a truth universally acknowledged, that a single man in possession",,5,12
+"of a good fortune, must be in want of a wife.",,3,11
+However little known the feelings or views of such a man may be on his,,8,15
+"first entering a neighbourhood, this truth is so well fixed in the minds",,6,13
+"of the surrounding families, that he is considered as the rightful",,6,11
+property of some one or other of their daughters.,,6,9
+"""My dear Mr. Bennet,"" said his lady to him one day, ""have you heard that",,6,15
+"Netherfield Park is let at last?""",,4,6
+Mr. Bennet replied that he had not.,,5,7
+"""But it is,"" returned she; ""for Mrs. Long has just been here, and she",,8,14
+Mr. Bennet was among the earliest of those who waited on Mr. Bingley. He,,9,14
+"had always intended to visit him, though to the last always assuring his",,3,13
+wife that he should not go; and till the evening after the visit was,,7,14
+"paid, she had no knowledge of it. It was then disclosed in the following",,6,14
+"manner. Observing his second daughter employed in trimming a hat, he",,7,11
+"suddenly addressed her with,",,4,4
+"""I hope Mr. Bingley will like it Lizzy.""",,3,8
+"""We are not in a way to know _what_ Mr. Bingley likes,"" said her mother",,6,15
+"resentfully, ""since we are not to visit.""",,5,7
+"""But you forget, mama,"" said Elizabeth, ""that we shall meet him at the",,7,13
+"Not all that Mrs. Bennet, however, with the assistance of her five",,8,12
+"daughters, could ask on the subject was sufficient to draw from her",,5,12
+husband any satisfactory description of Mr. Bingley. They attacked him,,4,10
+"in various ways; with barefaced questions, ingenious suppositions, and",,4,9
+distant surmises; but he eluded the skill of them all; and they were at,,9,14
+last obliged to accept the second-hand intelligence of their neighbour,,9,11
+Lady Lucas. Her report was highly favourable. Sir William had been,,5,11
+"delighted with him. He was quite young, wonderfully handsome, extremely",,9,10
+"agreeable, and to crown the whole, he meant to be at the next assembly",,11,14
+with a large party. Nothing could be more delightful! To be fond of,,5,13
+"When Jane and Elizabeth were alone, the former, who had been cautious in",,11,13
+"her praise of Mr. Bingley before, expressed to her sister how very much",,11,13
+she admired him.,,2,3
+"""He is just what a young man ought to be,"" said she, ""sensible, good",,5,14
+"humoured, lively; and I never saw such happy manners!--so much ease,",,7,12
+"with such perfect good breeding!""",,4,5
+"""He is also handsome,"" replied Elizabeth, ""which a young man ought",,6,11
+"likewise to be, if he possibly can. His character is thereby complete.""",,9,12
+"""I was very much flattered by his asking me to dance a second time. I",,7,15
+"did not expect such a compliment.""",,3,6
+Within a short walk of Longbourn lived a family with whom the Bennets,,4,13
+were particularly intimate. Sir William Lucas had been formerly in trade,,7,11
+"in Meryton, where he had made a tolerable fortune and risen to the",,10,13
+"honour of knighthood by an address to the King, during his mayoralty.",,2,12
+The distinction had perhaps been felt too strongly. It had given him a,,6,13
+disgust to his business and to his residence in a small market town; and,,5,14
+"quitting them both, he had removed with his family to a house about a",,5,14
+"mile from Meryton, denominated from that period Lucas Lodge, where he",,9,11
+"could think with pleasure of his own importance, and unshackled by",,4,11
+"business, occupy himself solely in being civil to all the world. For",,5,12
+The ladies of Longbourn soon waited on those of Netherfield. The visit,,8,12
+was returned in due form. Miss Bennet's pleasing manners grew on the,,9,13
+good will of Mrs. Hurst and Miss Bingley; and though the mother was,,3,13
+"found to be intolerable and the younger sisters not worth speaking to, a",,7,13
+"wish of being better acquainted with _them_, was expressed towards the",,9,11
+two eldest. By Jane this attention was received with the greatest,,10,11
+pleasure; but Elizabeth still saw superciliousness in their treatment of,,9,10
+"every body, hardly excepting even her sister, and could not like them;",,10,12
+"though their kindness to Jane, such as it was, had a value as arising in",,4,15
+all probability from the influence of their brother's admiration. It was,,5,12
+Mr. Bennet's property consisted almost entirely in an estate of two,,8,12
+"thousand a year, which, unfortunately for his daughters, was entailed in",,5,11
+"default of heirs male, on a distant relation; and their mother's",,6,12
+"fortune, though ample for her situation in life, could but ill supply",,4,12
+"the deficiency of his. Her father had been an attorney in Meryton, and",,9,13
+had left her four thousand pounds.,,2,6
+"She had a sister married to a Mr. Philips, who had been a clerk to their",,7,16
+"father, and succeeded him in the business, and a brother settled in",,9,12
+London in a respectable line of trade.,,5,7
+The village of Longbourn was only one mile from Meryton; a most,,5,12
+"At five o'clock the two ladies retired to dress, and at half past six",,6,15
+Elizabeth was summoned to dinner. To the civil enquiries which then,,8,11
+"poured in, and amongst which she had the pleasure of distinguishing the",,6,12
+"much superior solicitude of Mr. Bingley's, she could not make a very",,6,13
+"favourable answer. Jane was by no means better. The sisters, on hearing",,9,12
+"this, repeated three or four times how much they were grieved, how",,11,12
+"shocking it was to have a bad cold, and how excessively they disliked",,6,13
+being ill themselves; and then thought no more of the matter: and their,,9,13
+"indifference towards Jane when not immediately before them, restored",,12,9
+Elizabeth to the enjoyment of all her original dislike.,,7,9
+"Elizabeth passed the chief of the night in her sister's room, and in the",,9,15
+morning had the pleasure of being able to send a tolerable answer to the,,10,14
+"enquiries which she very early received from Mr. Bingley by a housemaid,",,10,12
+and some time afterwards from the two elegant ladies who waited on his,,8,13
+"sisters. In spite of this amendment, however, she requested to have a",,11,12
+"note sent to Longbourn, desiring her mother to visit Jane, and form her",,7,13
+"own judgment of her situation. The note was immediately dispatched, and",,7,11
+"its contents as quickly complied with. Mrs. Bennet, accompanied by her",,6,11
+"two youngest girls, reached Netherfield soon after the family breakfast.",,9,10
+"Had she found Jane in any apparent danger, Mrs. Bennet would have been",,9,13
+The day passed much as the day before had done. Mrs. Hurst and Miss,,6,14
+"Bingley had spent some hours of the morning with the invalid, who",,5,12
+"continued, though slowly, to mend; and in the evening Elizabeth joined",,8,11
+"their party in the drawing-room. The loo table, however, did not appear.",,7,13
+"Mr. Darcy was writing, and Miss Bingley, seated near him, was watching",,4,12
+"the progress of his letter, and repeatedly calling off his attention by",,8,12
+"messages to his sister. Mr. Hurst and Mr. Bingley were at piquet, and",,7,13
+Mrs. Hurst was observing their game.,,3,6
+"Elizabeth took up some needlework, and was sufficiently amused in",,8,10
+attending to what passed between Darcy and his companion. The perpetual,,8,11
+"When the ladies removed after dinner, Elizabeth ran up to her sister,",,11,12
+"and seeing her well guarded from cold, attended her into the",,9,11
+drawing-room; where she was welcomed by her two friends with many,,7,12
+professions of pleasure; and Elizabeth had never seen them so agreeable,,13,11
+as they were during the hour which passed before the gentlemen appeared.,,13,12
+Their powers of conversation were considerable. They could describe an,,10,10
+"entertainment with accuracy, relate an anecdote with humour, and laugh",,7,10
+at their acquaintance with spirit.,,2,5
+"But when the gentlemen entered, Jane was no longer the first object.",,12,12
+"Miss Bingley's eyes were instantly turned towards Darcy, and she had",,7,12
+"In consequence of an agreement between the sisters, Elizabeth wrote the",,15,11
+"next morning to her mother, to beg that the carriage might be sent for",,8,14
+"them in the course of the day. But Mrs. Bennet, who had calculated on",,7,14
+"her daughters remaining at Netherfield till the following Tuesday, which",,8,10
+"would exactly finish Jane's week, could not bring herself to receive",,9,12
+"them with pleasure before. Her answer, therefore, was not propitious, at",,10,11
+"least not to Elizabeth's wishes, for she was impatient to get home. Mrs.",,8,14
+Bennet sent them word that they could not possibly have the carriage,,8,12
+"before Tuesday; and in her postscript it was added, that if Mr. Bingley",,6,13
+"and his sister pressed them to stay longer, she could spare them very",,9,13
+"""I hope, my dear,"" said Mr. Bennet to his wife, as they were at",,8,14
+"breakfast the next morning, ""that you have ordered a good dinner to-day,",,7,13
+"because I have reason to expect an addition to our family party.""",,6,12
+"""Who do you mean, my dear? I know of nobody that is coming I am sure,",,3,16
+"unless Charlotte Lucas should happen to call in, and I hope _my_ dinners",,5,13
+"are good enough for her. I do not believe she often sees such at home.""",,11,15
+"""The person of whom I speak, is a gentleman and a stranger."" Mrs.",,6,13
+"Bennet's eyes sparkled.--""A gentleman and a stranger! It is Mr. Bingley",,9,13
+I am sure. Why Jane--you never dropt a word of this; you sly thing!,,4,15
+"Well, I am sure I shall be extremely glad to see Mr. Bingley.--But--good",,9,15
+"During dinner, Mr. Bennet scarcely spoke at all; but when the servants",,8,12
+"were withdrawn, he thought it time to have some conversation with his",,7,12
+"guest, and therefore started a subject in which he expected him to",,10,12
+"shine, by observing that he seemed very fortunate in his patroness. Lady",,9,12
+"Catherine de Bourgh's attention to his wishes, and consideration for his",,6,12
+"comfort, appeared very remarkable. Mr. Bennet could not have chosen",,9,10
+better. Mr. Collins was eloquent in her praise. The subject elevated him,,11,12
+"to more than usual solemnity of manner, and with a most important aspect",,4,13
+he protested that he had never in his life witnessed such behaviour in a,,10,14
+"person of rank--such affability and condescension, as he had himself",,5,11
+"Mr. Collins was not a sensible man, and the deficiency of nature had",,6,13
+been but little assisted by education or society; the greatest part of,,9,12
+his life having been spent under the guidance of an illiterate and,,9,12
+"miserly father; and though he belonged to one of the universities, he",,10,12
+"had merely kept the necessary terms, without forming at it any useful",,8,12
+"acquaintance. The subjection in which his father had brought him up, had",,4,12
+"given him originally great humility of manner, but it was now a good",,3,13
+"deal counteracted by the self-conceit of a weak head, living in",,8,12
+"retirement, and the consequential feelings of early and unexpected",,12,9
+prosperity. A fortunate chance had recommended him to Lady Catherine de,,9,11
+As no objection was made to the young people's engagement with their,,9,13
+"aunt, and all Mr. Collins's scruples of leaving Mr. and Mrs. Bennet for",,4,14
+"a single evening during his visit were most steadily resisted, the coach",,9,12
+conveyed him and his five cousins at a suitable hour to Meryton; and the,,6,14
+"girls had the pleasure of hearing, as they entered the drawing-room,",,9,12
+"that Mr. Wickham had accepted their uncle's invitation, and was then in",,5,13
+the house.,,2,2
+"When this information was given, and they had all taken their seats, Mr.",,6,13
+"Collins was at leisure to look around him and admire, and he was so much",,4,15
+"struck with the size and furniture of the apartment, that he declared he",,9,13
+"Elizabeth related to Jane the next day, what had passed between Mr.",,11,12
+Wickham and herself. Jane listened with astonishment and concern;--she,,8,10
+knew not how to believe that Mr. Darcy could be so unworthy of Mr.,,5,14
+"Bingley's regard; and yet, it was not in her nature to question the",,7,14
+veracity of a young man of such amiable appearance as Wickham.--The,,5,12
+"possibility of his having really endured such unkindness, was enough to",,5,11
+interest all her tender feelings; and nothing therefore remained to be,,13,11
+"done, but to think well of them both, to defend the conduct of each, and",,7,15
+"throw into the account of accident or mistake, whatever could not be",,6,12
+otherwise explained.,,4,2
+Till Elizabeth entered the drawing-room at Netherfield and looked in,,10,11
+"vain for Mr. Wickham among the cluster of red coats there assembled, a",,7,13
+doubt of his being present had never occurred to her. The certainty of,,9,13
+meeting him had not been checked by any of those recollections that,,9,12
+might not unreasonably have alarmed her. She had dressed with more than,,8,12
+"usual care, and prepared in the highest spirits for the conquest of all",,7,13
+"that remained unsubdued of his heart, trusting that it was not more than",,5,13
+might be won in the course of the evening. But in an instant arose the,,8,15
+dreadful suspicion of his being purposely omitted for Mr. Darcy's,,4,11
+pleasure in the Bingleys' invitation to the officers; and though this,,6,11
+The next day opened a new scene at Longbourn. Mr. Collins made his,,8,13
+"declaration in form. Having resolved to do it without loss of time, as",,4,13
+"his leave of absence extended only to the following Saturday, and having",,8,12
+no feelings of diffidence to make it distressing to himself even at the,,10,13
+"moment, he set about it in a very orderly manner, with all the",,7,13
+observances which he supposed a regular part of the business. On finding,,7,12
+"Mrs. Bennet, Elizabeth, and one of the younger girls together, soon",,9,11
+"after breakfast, he addressed the mother in these words,",,9,9
+"""May I hope, Madam, for your interest with your fair daughter Elizabeth,",,6,12
+when I solicit for the honour of a private audience with her in the,,7,14
+Mr. Collins was not left long to the silent contemplation of his,,4,12
+"successful love; for Mrs. Bennet, having dawdled about in the vestibule",,8,11
+"to watch for the end of the conference, no sooner saw Elizabeth open the",,11,14
+"door and with quick step pass her towards the staircase, than she",,5,12
+"entered the breakfast-room, and congratulated both him and herself in",,8,11
+warm terms on the happy prospect of their nearer connection. Mr. Collins,,7,12
+"received and returned these felicitations with equal pleasure, and then",,12,10
+"proceeded to relate the particulars of their interview, with the result",,11,11
+"of which he trusted he had every reason to be satisfied, since the",,10,13
+refusal which his cousin had steadfastly given him would naturally flow,,3,11
+"The discussion of Mr. Collins's offer was now nearly at an end, and",,4,14
+Elizabeth had only to suffer from the uncomfortable feelings necessarily,,9,10
+"attending it, and occasionally from some peevish allusion of her mother.",,6,11
+"As for the gentleman himself, _his_ feelings were chiefly expressed, not",,12,11
+"by embarrassment or dejection, or by trying to avoid her, but by",,5,12
+stiffness of manner and resentful silence. He scarcely ever spoke to,,11,11
+"her, and the assiduous attentions which he had been so sensible of",,8,12
+"himself, were transferred for the rest of the day to Miss Lucas, whose",,9,13
+"civility in listening to him, was a seasonable relief to them all, and",,6,13
+especially to her friend.,,4,4
+"The Bennets were engaged to dine with the Lucases, and again during the",,11,13
+"chief of the day, was Miss Lucas so kind as to listen to Mr. Collins.",,3,15
+"Elizabeth took an opportunity of thanking her. ""It keeps him in good",,5,12
+"humour,"" said she, ""and I am more obliged to you than I can express.""",,5,14
+"Charlotte assured her friend of her satisfaction in being useful, and",,7,11
+that it amply repaid her for the little sacrifice of her time. This was,,7,14
+"very amiable, but Charlotte's kindness extended farther than Elizabeth",,10,10
+"had any conception of;--its object was nothing less, than to secure her",,6,13
+"from any return of Mr. Collins's addresses, by engaging them towards",,5,12
+herself. Such was Miss Lucas's scheme; and appearances were so,,8,11
+"Elizabeth was sitting with her mother and sisters, reflecting on what",,7,11
+"she had heard, and doubting whether she were authorised to mention it,",,9,12
+"when Sir William Lucas himself appeared, sent by his daughter to",,6,11
+"announce her engagement to the family. With many compliments to them,",,8,11
+and much self-gratulation on the prospect of a connection between the,,8,12
+"houses, he unfolded the matter,--to an audience not merely wondering,",,10,11
+"but incredulous; for Mrs. Bennet, with more perseverance than",,8,9
+"politeness, protested he must be entirely mistaken, and Lydia, always",,9,10
+"unguarded and often uncivil, boisterously exclaimed,",,5,6
+"""Good Lord! Sir William, how can you tell such a story?--Do not you know",,1,15

@@ -27,8 +27,6 @@ pnp <- gutenberg_download(
 )
 
 
-pnp
-
 #### Save data ####
 # [...UPDATE THIS...]
 # change the_raw_data to whatever name you assigned when you downloaded it.

@@ -11,27 +11,33 @@
 #### Workspace setup ####
 library(tidyverse)
 library(rstanarm)
+library(marginaleffects)
 
 #### Read data ####
-analysis_data <- read_csv("outputs/data/analysis_data.csv")
+pnp_data <- read_csv("outputs/data/analysis_data.csv")
 
 ### Model data ####
-first_model <-
-  stan_glm(
-    formula = flying_time ~ length + width,
-    data = analysis_data,
-    family = gaussian(),
+first_model <- stan_glm(
+    count_e ~ word_count,
+    data = pnp_data,
+    family = poisson(link = "log"),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
-    prior_aux = exponential(rate = 1, autoscale = TRUE),
     seed = 853
   )
+
+
 
 
 #### Save model ####
 saveRDS(
   first_model,
-  file = "outputs/models/first_model.rds"
+  file = "pnp_model.rds"
 )
+
+#plot_predictions(first_model, condition = "word_count") +
+#  labs(x = "Number of words",
+#       y = "Average number of e/Es in the first 10 lines") +
+#  theme_classic()
 
 
