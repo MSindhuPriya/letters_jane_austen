@@ -28,8 +28,7 @@ pnp <- gutenberg_download(
 
 
 #### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
+# download data locally
 write_csv(pnp, "inputs/data/raw_data.csv") 
 
          

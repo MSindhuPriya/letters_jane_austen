@@ -20,7 +20,6 @@ pnp <- read_csv(
   )
 )
 
-###### TO DOOOOOOO ######################
 pnp_reduced <-
   pnp |>
   filter(!is.na(text)) |> # Remove empty lines
@@ -35,18 +34,13 @@ pnp_reduced <-
   select(text, chapter) |>
   mutate(
     chapter = str_extract_all(chapter, "([IVX]+)"),
-    #chapter = str_remove(chapter, "CHAPTER "),
-    #chapter = str_remove(chapter, ". "),
-    #chapter = str_remove(chapter, "—CONCLUSION"),
-    #chapter = as.integer(as.roman(chapter))
-    #chapter = c("X" = 10)
-    #chapter = as.integer(as.roman(chapter))
   ) |> # Isolate chapter numbers (strings of roman numerals)
   mutate(count_e = str_count(text, "e|E"),
          word_count = str_count(text, "\\w+")
          # From: https://stackoverflow.com/a/38058033
   ) 
 
+# select only the necessary data 
 pnp_reduced |>
   select(chapter, word_count, count_e, text) |>
   head()

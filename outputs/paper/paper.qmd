@@ -1,13 +1,12 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Letters used in Pride and Prejudice"
 author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
+  - Sindhu Priya Mallavarapu
+  - Jena Shah
+thanks: "Code and data are available at: https://github.com/MSindhuPriya/letters_jane_austen "
 date: today
 date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+abstract: "This paper explores the distribution of the letter 'e' in Jane Austen's Pride and Prejudice to understand if its frequency of occurrence correlates with the amount of words in the text. The methodology involves counting the occurrences of the letter 'e' in the first ten lines of each chapter gathered from the dataset obtained from Project Gutenberg. We found that the frequency of the letter “e” increases as the amount of words in the text increases. This analysis can be of interest to linguists as it can help them to identify patterns and characteristics of the English language, better understand the writing style of Jane Austen, and understand the evolution of the English language over time."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -20,6 +19,7 @@ bibliography: references.bib
 
 library(tidyverse)
 library(palmerpenguins)
+library(marginaleffects)
 ```
 
 
@@ -33,12 +33,13 @@ The remainder of this paper is structured as follows. @sec-data....
 
 # Data {#sec-data}
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+Some of our data is of (@fig-bills), from @palmerpenguins.
 
 ```{r}
 #| label: fig-bills
 #| fig-cap: Bills of penguins
 #| echo: false
+#| eval: false
 
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(alpha = 0.8) +
@@ -51,23 +52,48 @@ ggplot(penguins, aes(x = island, fill = species)) +
 
 Talk more about it.
 
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+And also  (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+
+Should this go in results or data?
 
 ```{r}
 #| label: fig-planes
-#| fig-cap: Relationship between wing length and width
+#| fig-cap: Frequency of the letter "e" in the first line of each chapter
 #| echo: false
 #| warning: false
 #| message: false
+#| eval: true
 
-analysis_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
+pnp_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
+mean_e <- mean(pnp_data$count_e)
+variance_e <- var(pnp_data$count_e)
+
+pnp_data |>
+  ggplot(aes(x = count_e)) +
+  geom_histogram() +
+  geom_vline(xintercept = mean_e, 
+             linetype = "dashed", 
+             color = "#C64191") +
+  geom_vline(xintercept = variance_e, 
+             linetype = "dashed", 
+             color = "#0ABAB5") +
   theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
+  labs(
+    y = "Count",
+    x = "Number of e's per line for first ten lines"
+  )
+
+pnp_data |>
+  ggplot(aes(x = word_count, y = count_e)) +
+  geom_jitter(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    x = "Number of words in the line",
+    y = "Number of e/Es in the line"
+  )
+
 ```
 
 Talk way more about it. 
@@ -85,12 +111,10 @@ Here we briefly describe the Bayesian analysis model used to investigate... Back
 Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
 
 \begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
+y_i|\lambda &\sim \mbox{Poisson}(\lambda_i)\\
+log(\lambda_i) &= \beta_0 + \beta_i \times \mbox{Number} \mbox{ of} \mbox{ words}_i \\
+\beta_0 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_1 &\sim \mbox{Normal}(0, 2.5)
 \end{align}
 
 We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
@@ -116,25 +140,37 @@ Our results are summarized in @tbl-modelresults.
 library(rstanarm)
 
 first_model <-
-  readRDS(file = here::here("outputs/models/first_model.rds"))
+  readRDS(file = here::here("outputs/models/pnp_model.rds"))
 ```
 
 ```{r}
 #| echo: false
 #| eval: true
 #| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
+#| tbl-cap: "Explanatory models of the number of 'E/e's seen based on the number of words on the line"
 #| warning: false
 
 modelsummary::modelsummary(
   list(
-    "First model" = first_model
+    "Model" = first_model
   ),
-  statistic = "mad",
-  fmt = 2
+  statistic = "mad",# what is this
+  fmt = 2 # and what is this
 )
 ```
 
+```{r}
+#| echo: false
+#| eval: true
+#| label: counts
+#| fig-cap: "The number of 'E/e's predicted by the model for the first 10 lines"
+#| warning: false
+
+plot_predictions(first_model, condition = "word_count") +
+  labs(x = "Number of words",
+       y = "Average number of e/Es in the first 10 lines") +
+  theme_classic()
+```
 
 
 
@@ -142,7 +178,11 @@ modelsummary::modelsummary(
 
 ## First discussion point {#sec-first-point}
 
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
+In this study, we extracted the first ten lines of each chapter and counted the occurrences of "e" or "E" in each unit. Our goal was to investigate if there is a correlation between the frequency of "e" and the length of texts, which could provide insights into the distribution of this letter in English literature.
+
+Our analysis revealed that the frequency of the letter "e" does/does not consistently increase as more words are used in the first ten lines of each chapter. This suggests that the distribution of "e" in Pride and Prejudice is/is not uniform and (may vary based on factors like word choice, sentence structure, and the literary style). Our findings add to the understanding of the linguistic characteristics of the novel as well as the distribution of letters in different texts.
+
+Furthermore, we attempt (?? word choice) to highlight the importance of considering methodological approaches in linguistic research. By adapting a methodology from a study done on ancient poetry to analyze a work of fiction from the 19th century, we demonstrate the flexibility and applicability of quantitative methods in studying language and literature. This approach allows us to gain newer insights into familiar texts and opens up ways for future research in literature and linguistics.
 
 ## Second discussion point
 
@@ -150,7 +190,12 @@ If my paper were 10 pages, then should be be at least 2.5 pages. The discussion 
 
 ## Weaknesses and next steps
 
-Weaknesses and next steps should also be included.
+One weakness of our study is the limited scope of analysis, focusing only on the first ten lines of each chapter of Pride and Prejudice. While this approach provides us with a manageable dataset, it may not capture the full complexity of the entire novel's linguistic features. Additionally, our analysis does not consider contextual factors such as dialogue, character names, or punctuation, which could influence the distribution of "e" in the text.
+
+## Future
+
+Future research could expand on our analysis by considering a broader range of textual features and linguistic elements. For example, studying the distribution of other letters or letter combinations could provide a more comprehensive understanding of the novel's language. Additionally, exploring the relationship between letter frequency and literary devices [cite something here] such as rhyme, meter, or alliteration could offer deeper insights into Austen's writing style and the broader context of 19th-century English literature. Overall, our study lays the foundation for further investigations into literature, linguistics, and digital humanities, which highlights the great potential for interdisciplinary research in this field.
+
 
 \newpage
 
