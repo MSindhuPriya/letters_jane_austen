@@ -1,5 +1,5 @@
 ---
-title: "Letters used in Pride and Prejudice"
+title: "Examining the Frequency of 'E': A Quantitative Analysis of Pride and Prejudice"
 author: 
   - Sindhu Priya Mallavarapu
   - Jena Shah
