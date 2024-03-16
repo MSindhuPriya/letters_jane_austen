@@ -9,9 +9,10 @@
 #### Workspace setup ####
 library(tidyverse)
 library(rstanarm)
+library(arrow)
 
 #### Read data ####
-pnp_data <- read_csv("outputs/data/analysis_data.csv")
+pnp_data <- read_parquet("outputs/data/analysis_data.parquet")
 
 ### Model data ####
 

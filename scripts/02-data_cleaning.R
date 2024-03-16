@@ -8,6 +8,7 @@
 
 #### Workspace setup ####
 library(tidyverse)
+library(arrow)
 
 #### Clean data ####
 raw_data <- read_csv("inputs/data/raw_data.csv")
@@ -47,3 +48,5 @@ pnp_reduced |>
 
 #### Save data ####
 write_csv(pnp_reduced, "outputs/data/analysis_data.csv")
+
+write_parquet(pnp_reduced, "outputs/data/analysis_data.parquet")

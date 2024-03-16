@@ -20,6 +20,7 @@ bibliography: references.bib
 library(tidyverse)
 library(palmerpenguins)
 library(marginaleffects)
+library(arrow)
 ```
 
 
@@ -64,7 +65,7 @@ Should this go in results or data?
 #| message: false
 #| eval: true
 
-pnp_data <- read_csv(here::here("outputs/data/analysis_data.csv"))
+pnp_data <- read_parquet(here::here("outputs/data/analysis_data.parquet"))
 
 mean_e <- mean(pnp_data$count_e)
 variance_e <- var(pnp_data$count_e)
