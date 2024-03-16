@@ -18,7 +18,6 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
-library(palmerpenguins)
 library(marginaleffects)
 library(arrow)
 ```
