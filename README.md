@@ -2,7 +2,10 @@
 An analysis of letters in Jane Austen's book Pride and Prejudice
 
 # Overall
-This study aims to find the occurrence of the letter "e" in Jane Austen's Pride and Prejudice. We aim to use this knowledge to help understand linguistics and literature better.
+This study aims to find the occurrence of the letter 'e' in Jane Austen's Pride and Prejudice. We aim to use this knowledge to help understand linguistics and literature better.
+
+This repository consists of all the data we used and cleaned, along with the results obtained and all other components of our study. We conducted this work on R and used its packages. We also used outside references for the final paper. All external sources are cited in references.bib and all the work we did can be found in this repository.
+
 
 # Structure
 - `inputs/data`: consists of the raw and cleaned data used in this study.
