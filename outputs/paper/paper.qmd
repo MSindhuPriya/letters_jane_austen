@@ -20,49 +20,39 @@ bibliography: references.bib
 library(tidyverse)
 library(marginaleffects)
 library(arrow)
+library(rstanarm)
+library(ggplot2)
 ```
 
 
 # Introduction
 
-You can and should cross-reference sections and sub-sections. 
+In the 1830s, Samuel Morse, inventor of the telegraph and Morse code, conducted research on the frequency of each letter in printed materials. This revealed that certain letters, such as ‘e’, were more prevalent in written English than others. This formed the basis for Morse's development of Morse code by assigning the most used letters to the shortest and simplest codes for the optimization of message transmissions of the telegraph [@ref3]. Other research has also shown that the letter ‘e’ is most used in English text [@ref4]. Rohan Alexander’s work in ‘Telling Stories with Data’ examined the frequency of ‘e’ was studied in the infamous ‘Jane Eyre’ by Charlotte Bronte, concluding that the letter ‘e’ increases with the words per line [@text]. His work showed that studying the frequencies of English letters is applicable in fields besides telecommunications as it can be used in analysing literature. This helps with understanding the linguistics of English used in various texts. 
 
-The remainder of this paper is structured as follows. @sec-data....
+Influenced by Alexander’s work, we study the letter ‘e’ in yet another literary favourite -- Jane Austen's 'Pride and Prejudice' [@pnp]. We do this by using data from the `gutenbergr` [@guten] package in R [@citeR] and using Poisson regression to draw conclusions. Through examining the first ten lines of each chapter, we use that as a representative sample of the entire text. The estimand for this study is the expected frequency of the letter ‘e’ in each line of text, with the expectation that it will increase with the number of words per line. This captures the relationship between line length (in terms of words) and the frequency of ‘e’, providing the distribution of that letter within the text. Through this study, we hope to contribute to the intersection of language, literature, and data analysis.
+
+The structure of our paper ahead consists of three parts. We start with the discussion of the data used in our study in @sec-data. This includes elements from data collection, data cleaning, and measurement. Further, we discuss our model in  @sec-model Later, we share the results of our study in @sec-results and the process of analysis. We came to a conclusion that the frequency of the letter ‘e’ increases as the number of words per line increases. Finally, we discuss what the results indicate, limitations, and improvements we can make in @sec-disc. The entirety of this study is done through R [@citeR] and its packages – which, along with other studies we use in our work, are mentioned in the bibliography.
+
 
 
 
 # Data {#sec-data}
 
-Some of our data is of (@fig-bills), from @palmerpenguins.
+## Overview
 
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
-#| eval: false
+The Pride and Prejudice text  that was used in this paper was obtained from Project Gutenberg using the `gutenbergr` [@guten] package. The analysis in this paper is done through R [@citeR] using numerous packages such as `tidyverse` [@tidy], `marginaleffects` [@margeff], `arrow` [@arrow], `rstanarm` [@rstanarm], and `ggplot2` [@gg2]. Moreover, in order to assist in this analysis we used some code found in the book 'Telling Stories with Data' [@text] to create a model and to create figures in this paper. 
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
+Multiple versions of the text Pride and Prejudice were found in the `gutenbergr` package, however, most of them were either archived and therefore inaccessible via R or their access was blocked for other unknown reasons. There was only one version of this text that was available for download at the time of the analysis, and thus that was the version of the text that was used. This downloaded text also only had the first 23 chapters of Pride and Prejudice as opposed to the original 61.
 
-Talk more about it.
-
-And also  (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
-
-Should this go in results or data?
 
 ```{r}
 #| label: fig-planes
-#| fig-cap: Frequency of the letter "e" in the first line of each chapter
+#| fig-cap: Frequency of the letter "e" in the first ten lines of each chapter
 #| echo: false
 #| warning: false
 #| message: false
 #| eval: true
+
 
 pnp_data <- read_parquet(here::here("outputs/data/analysis_data.parquet"))
 
@@ -80,9 +70,78 @@ pnp_data |>
              color = "#0ABAB5") +
   theme_minimal() +
   labs(
-    y = "Count",
-    x = "Number of e's per line for first ten lines"
+    y = "Frequency",
+    x = "Number of e's per line"
   )
+```
+
+## Measurement
+
+Several decisions were made with regards to the measurement of how many times we see 'e'. First, all the letters in the text were converted to lowercase so that all capital ‘e’s were counted along with the lowercase ‘e’s. This was done to ensure that we did not miss the counting of any 'e's due to their case. The text was then processed to extract the first ten lines of each chapter, excluding any additional text such as chapter titles or introductory paragraphs. Moreover, special characters, punctuation, and whitespaces were removed. Further, we decided to only count the number of 'e's seen in the first ten lines of each chapter, excluding the title of the chapter. These decisions were made to ensure that we could only count the frequency of the letter 'e' from words that were written in the main body of the original story. The number of 'e's that occurred beyond the first ten lines of each chapter were not counted. This was done to ensure that the dataset was not too large so that the model could run on the dataset in a reasonable amount of time. 
+It is also important to note that the data available on `gutenbergr` only included the first 23 chapters in Pride and Prejudice whereas the original text consisted of 61 chapters. Thus any occurances of the letter 'e' outside of these first 23 chapters were not counted. This resulted in a total of 230 observations and the final cleaned analysis dataset consisted of 4 variables. Further discussion of the variables will be done in @sec-desc.  
+
+## Description of Variables {#sec-desc}
+
+Within our cleaned dataset, there are four main variables - `text`, `chapter`, `count_e`, and `word_count`.The actual string of text found in the lines is represented in the `text` variable, `chapter` indicates a string of the chapter in which the text is found. However, the variables that are used in our analysis are `count_e`, an integer that represents the occurrences of the letter ‘e’ per line, and `word_count` an integer variable representing the number of words in the line. As seen in @fig-planes the letter 'e' appears in a single line anywhere from 0 to 33 times and the number of words in a line range from 0 to 15. 
+
+
+
+
+# Model {#sec-model}
+
+The goal of our modelling strategy is to use Poisson distribution to model the frequency of the letter 'e' in each line of "Pride and Prejudice". Poisson distributions are commonly used to model the number of events occurring in a fixed interval of time or space, given the average rate of occurrence of the event.
+
+In our study, we treated each line of text as a separate interval, with the number of 'e' occurrences in each line following a Poisson distribution. The Poisson distribution is characterized by a single parameter, λ, which represents the average rate of occurrence of the event. In our case, λ corresponds to the average frequency of 'e' in the text for the amount of words per line.
+
+## Assumptions
+
+The Poisson distribution assumes that the events occur independently and at a constant average rate. In the context of our study, this assumption implies that the occurrence of the letter 'e' in one line is independent of its occurrence in other lines, and that the average frequency of 'e' remains constant across all lines. We see that these assumptions hold as the the number of occurances of 'e' in one line does not impact how many times 'e' occurs on another line. 
+
+
+Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+
+## Model set-up
+
+We define $y_i$ as the number of 'e's that are found in the line and λ is the mean number of 'e's that occur on the line. To implement the Poisson distribution model, we calculated the average frequency of 'e' in the text per line (depending on the amount of words per line). We then used this value as the λ parameter for the Poisson distribution to model the number of 'e' occurrences in each line as seen below
+
+
+\begin{align} 
+y_i|\lambda &\sim \mbox{Poisson}(\lambda_i)\\
+log(\lambda_i) &= \beta_0 + \beta_i \times \mbox{Number} \mbox{ of} \mbox{ words}_i \\
+\beta_0 &\sim \mbox{Normal}(0, 2.5) \\
+\beta_1 &\sim \mbox{Normal}(0, 2.5)
+\end{align}
+
+We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`. Th
+
+
+### Model justification
+
+We expect a positive relationship between the number of 'e's and the number of words in a line. To validate the Poisson distribution model, we compared the predicted frequency of 'e' for each line with the actual observed frequency. We found that the model accurately predicted the frequency of 'e' in the majority of lines, providing further support for its justification in modeling the letter frequency in the text.
+
+Thus, the Poisson distribution model captures the frequency of the letter 'e' in "Pride and Prejudice", providing insights into the distribution of letters within the text. This model contributes to our understanding of the text and the English language in classic literature, highlighting the patterns of letter frequency and textual structure in the work of Jane Austen.
+
+# Results {#sec-results}
+
+The analysis focused on the frequency of the letter ‘e’ in the first ten lines of each chapter of "Pride and Prejudice". A total of 23 chapters were included in the analysis, resulting in a dataset of 230 lines.
+
+The frequency of the letter ‘e’ varied across the lines, ranging from 0 to 33 occurrences per line. The average frequency of ‘e’ across all lines was 7 occurrences per line.
+To investigate the relationship between the number of words per line and the frequency of the letter ‘e’, a scatter plot was created [@fig-scatter]. Each point on the plot represents a line from the text, with the x-axis indicating the number of words in the line and the y-axis indicating the frequency of the letter ‘e’.  
+
+
+Our results are summarized in @tbl-modelresults.
+
+```{r}
+#| label: fig-scatter
+#| fig-cap: Frequency of the letter "e" depending on the number of words in a line
+#| echo: false
+#| warning: false
+#| message: false
+#| eval: true
+
+
+mean_e <- mean(pnp_data$count_e)
+variance_e <- var(pnp_data$count_e)
 
 pnp_data |>
   ggplot(aes(x = word_count, y = count_e)) +
@@ -96,48 +155,18 @@ pnp_data |>
 
 ```
 
-Talk way more about it. 
+The scatter plot [@fig-scatter] shows a clear trend of increasing frequency of ‘e’ with a higher number of words per line. We created a best fit line for the scatter plot which indicated a positive relation between the number of words and the occurrences of the letter ‘e’.
 
+## Poisson Distribution Analysis
 
+The Poisson distribution was used to model the frequency of the letter ‘e’ in each line as shown in @fig-counts. The model acts according to expectation that there is a positive relationship between the number of 'e's seen in a line and the number of words in the line. We see from @fig-counts also that the model most accurately predicts the number of 'e's when there are 12 words in a line. We also see from @tbl-modelresults that the intercept is 1.63. This also represents a positive relationship between the count of 'e' and the count of words in a line. 
 
-# Model
-
-The goal of our modelling strategy is twofold. Firstly,...
-
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
-
-## Model set-up
-
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
-
-\begin{align} 
-y_i|\lambda &\sim \mbox{Poisson}(\lambda_i)\\
-log(\lambda_i) &= \beta_0 + \beta_i \times \mbox{Number} \mbox{ of} \mbox{ words}_i \\
-\beta_0 &\sim \mbox{Normal}(0, 2.5) \\
-\beta_1 &\sim \mbox{Normal}(0, 2.5)
-\end{align}
-
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
-
-
-### Model justification
-
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
-
-We can use maths by including latex between dollar signs, for instance $\theta$.
-
-
-# Results
-
-Our results are summarized in @tbl-modelresults.
 
 ```{r}
 #| echo: false
 #| eval: true
 #| warning: false
 #| message: false
-
-library(rstanarm)
 
 first_model <-
   readRDS(file = here::here("outputs/models/pnp_model.rds"))
@@ -162,39 +191,34 @@ modelsummary::modelsummary(
 ```{r}
 #| echo: false
 #| eval: true
-#| label: counts
-#| fig-cap: "The number of 'E/e's predicted by the model for the first 10 lines"
+#| label: fig-counts
+#| fig-cap: "The number of 'E/e's predicted by the model for the number of words in the line"
 #| warning: false
 
 plot_predictions(first_model, condition = "word_count") +
   labs(x = "Number of words",
-       y = "Average number of e/Es in the first 10 lines") +
+       y = "Average number of e/Es in the line") +
   theme_classic()
 ```
 
 
 
-# Discussion
+# Discussion {#sec-disc}
 
-## First discussion point {#sec-first-point}
+In this study, we extracted the first ten lines of each chapter and counted the occurrences of 'e' or 'e' in each unit. Our goal was to investigate if there is a correlation between the frequency of 'e' and the length of texts, which could provide insights into the distribution of this letter in English literature.
 
-In this study, we extracted the first ten lines of each chapter and counted the occurrences of "e" or "E" in each unit. Our goal was to investigate if there is a correlation between the frequency of "e" and the length of texts, which could provide insights into the distribution of this letter in English literature.
+Our analysis revealed that the frequency of the letter ‘e’ increases as more words are used in the first ten lines of each chapter. This suggests that the distribution of ‘e’ in Pride and Prejudice is uniform and (may vary based on factors like word choice, sentence structure, and the literary style). Our findings add to the understanding of the linguistic characteristics of the novel as well as the distribution of letters in different texts.
 
-Our analysis revealed that the frequency of the letter "e" does/does not consistently increase as more words are used in the first ten lines of each chapter. This suggests that the distribution of "e" in Pride and Prejudice is/is not uniform and (may vary based on factors like word choice, sentence structure, and the literary style). Our findings add to the understanding of the linguistic characteristics of the novel as well as the distribution of letters in different texts.
+Furthermore, we attempt to highlight the importance of considering methodological approaches in linguistic research. By adapting a methodology from a study done on ancient poetry to analyse a work of fiction from the 19th century, we demonstrate the flexibility and applicability of quantitative methods in studying language and literature. This approach allows us to gain newer insights into familiar texts and opens up ways for future research in literature and linguistics.
 
-Furthermore, we attempt (?? word choice) to highlight the importance of considering methodological approaches in linguistic research. By adapting a methodology from a study done on ancient poetry to analyze a work of fiction from the 19th century, we demonstrate the flexibility and applicability of quantitative methods in studying language and literature. This approach allows us to gain newer insights into familiar texts and opens up ways for future research in literature and linguistics.
 
-## Second discussion point
+## Weaknesses
 
-## Third discussion point
+Our study has a limited scope of analysis, focusing only on the first ten lines of each chapter of Pride and Prejudice. While this approach provides us with a manageable dataset, it may not capture the full complexity of the entire novel's linguistic features. Additionally, our analysis does not consider contextual factors such as dialogue, character names, or punctuation, which could influence the distribution of 'e' in the text. 
 
-## Weaknesses and next steps
+## Future Research
 
-One weakness of our study is the limited scope of analysis, focusing only on the first ten lines of each chapter of Pride and Prejudice. While this approach provides us with a manageable dataset, it may not capture the full complexity of the entire novel's linguistic features. Additionally, our analysis does not consider contextual factors such as dialogue, character names, or punctuation, which could influence the distribution of "e" in the text.
-
-## Future
-
-Future research could expand on our analysis by considering a broader range of textual features and linguistic elements. For example, studying the distribution of other letters or letter combinations could provide a more comprehensive understanding of the novel's language. Additionally, exploring the relationship between letter frequency and literary devices [cite something here] such as rhyme, meter, or alliteration could offer deeper insights into Austen's writing style and the broader context of 19th-century English literature. Overall, our study lays the foundation for further investigations into literature, linguistics, and digital humanities, which highlights the great potential for interdisciplinary research in this field.
+Future research could expand on our analysis by considering a broader range of textual features and linguistic elements. For example, studying the distribution of other letters or letter combinations could provide a more comprehensive understanding of the novel's language. Additionally, exploring the relationship between letter frequency and literary devices could offer deeper insights into Austen's writing style since literary devices are shown to play a big role in fiction literature [@ref5]. Overall, our study lays the foundation for further investigations into literature and linguistics which highlights the great potential for interdisciplinary research in this field.
 
 
 \newpage
@@ -210,9 +234,7 @@ Future research could expand on our analysis by considering a broader range of t
 
 ## Posterior predictive check
 
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
+The posterior predictive check assesses the Poisson distribution model's ability to accurately predict the frequency of the letter 'e' in each line of "Pride and Prejudice". The peak at around 7-8 indicates that the model aligns well with the observed data, supporting its validity in capturing the variability in letter frequency across the text.
 
 ```{r}
 #| eval: true
@@ -237,9 +259,7 @@ posterior_vs_prior(first_model) +
 
 ## Diagnostics
 
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
+In the trace plot [@fig-stanareyouokay-1], each line represents the sampled values of a parameter at each iteration of the MCMC algorithm, showing the convergence of the chain. The Rhat plot [@fig-stanareyouokay-2] compares the variance within chains to the variance between chains, showing that they fall by 1 (indicating convergence).
 
 ```{r}
 #| echo: false
